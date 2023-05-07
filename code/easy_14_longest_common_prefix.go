@@ -5,27 +5,22 @@
  */
 package code
 
-import "sort"
-
 // @lc code=start
 func longestCommonPrefix(strs []string) string {
-    var longestPrefix string = ""
-    var endPrefix = false
-    
-    if len(strs) > 0 {
-        sort.Strings(strs)
-        first := string(strs[0])
-        last := string(strs[len(strs)-1])
-        
-        for i := 0; i < len(first); i++ {
-            if !endPrefix && string(last[i]) == string(first[i]) {
-                longestPrefix += string(last[i])
-            } else {
-                endPrefix = true
-            }
-        }
-    }
-    return longestPrefix
+	if len(strs)==0{
+		return ""
+	}
+	var prefix []rune
+	for i :=0;i<len(strs[0]);i++{
+		current:=strs[0][i]
+		for _,s:=range strs{
+			if i>len(s)- 1 || s[i] != current {
+				return string(prefix)
+			}
+		}
+		prefix = append(prefix, rune(strs[0][i]))
+	}
+	return string(prefix)
 }
 // @lc code=end
 
